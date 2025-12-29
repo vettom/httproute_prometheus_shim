@@ -7,7 +7,7 @@ on:
     tags:
       - 'v*'
   pull_request:
-
+    
 jobs:
     build:
         env:
@@ -21,17 +21,7 @@ jobs:
 
           - name: Set image name
             run: echo "IMAGE_NAME=${{ secrets.DOCKERHUB_USER }}/${{env.IMAGE_NAME}}" >> $GITHUB_ENV
-            
-          - name: Set image tag
-            id: vars
-            run: |
-              if [[ "${GITHUB_REF_TYPE}" == "tag" && "${GITHUB_REF_NAME}" == v* ]]; then
-                IMAGE_TAG="${GITHUB_REF_NAME}"
-              else
-                IMAGE_TAG="$(git rev-parse --short HEAD)"
-              fi
-                echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT            
-
+  
           - name: Extract Docker image metadata
             id: meta
             uses: docker/metadata-action@v5
@@ -54,7 +44,7 @@ jobs:
               platforms: linux/amd64,linux/arm64
               push: ${{ github.event_name != 'pull_request' }}
               tags: |
-                ${{ steps.vars.outputs.image_tag }}
+                ${{ steps.meta.outputs.tags }}
               annotations: ${{ steps.meta.outputs.annotations }}
               provenance: true
               sbom: true
