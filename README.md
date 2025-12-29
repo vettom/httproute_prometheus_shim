@@ -11,6 +11,10 @@ App exposes ingress as well as HTTP routes
 - http://<host>:<port>/ingress-sd # returns list of all ingress in HTTP service definition format
 - http://<host>:<port>/httproutes-sd # returns list of all http routes in HTTP service definition format
 
+## Release with a tag
+
+Add a tag when pushing to main
+
 #### Sample output
 
 Following is the sample output for httproutes-sd endpoint in Prometheus service discovery format. Monitoring of URL can be automated using this SD format.
