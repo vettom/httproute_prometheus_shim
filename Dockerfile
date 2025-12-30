@@ -1,4 +1,9 @@
-FROM --platform=$TARGETPLATFORM python:3.13.5-slim-bookworm
+FROM python:3.13.5-slim-bookworm
+
+#Define version argument and label
+ARG VERSION=v0.0.0
+LABEL org.opencontainers.image.version=$VERSION
+ENV APP_VERSION=$VERSION
 
 # Set the working directory to /app
 WORKDIR /app
